@@ -7,14 +7,18 @@ import * as yup from "yup";
 const schema = yup
   .object({
     email: yup.string().email().required(),
-    firstName: yup.string().required(),
-    lastName: yup.string().required(),
+    name: yup.string().required(),
   })
   .required();
 
-const saveProduct = async e => {
-    e.preventDefault()
-    await axios.post(process.env.URL, {schema})
+const saveUser = async data => {
+  try {
+    const response = await axios.post('http://localhost:8000/users', data);
+    console.log(data)
+    console.log('Response:', response);
+  } catch (error) {
+    console.error('Error:', error);
+  }
 }
 
 
@@ -28,18 +32,14 @@ export default function ReferForm() {
   });
 
   return (
-    <form onSubmit={handleSubmit(saveProduct)} className="grid place-content-center gap-5">
+    <form onSubmit={handleSubmit(saveUser)} className="grid place-content-center gap-5">
       <div className="grid place-content-between">
-        <input {...register("firstName")} className="p-2 text-stone-500"/>
-        <p>{errors.firstName?.message}</p>
-        <input {...register("lastName")} />
+        <input {...register("name")} placeholder='name' className="p-2 text-stone-500"/>
         <p>{errors.lastName?.message}</p>
       </div>
 
-      <input {...register("email")} />
+      <input {...register("email")} placeholder='email' className="p-2 text-stone-500"/>
       <p>{errors.email?.message}</p>
-      <input {...register("age")} />
-      <p>{errors.age?.message}</p>
 
       <input type="submit" />
     </form>

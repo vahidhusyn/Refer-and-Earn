@@ -1,5 +1,5 @@
 import express from 'express'
-import { createRefferal } from '../controller/ReferForm.controller.js'
+import { createRefferal } from '../controllers/RefferalForm.controller.js'
 
 const router = express.Router()
 

@@ -9,7 +9,7 @@ const prisma = new PrismaClient()
 export const getRefferal = async (req, res) => {
     try {
         const response = await prisma.user.findMany()
-        res.status(200).json(user)
+        res.status(200).json(response)
     } catch (error) {
         throw new ApiError(409,`${error} "User with email or name doesn't exists"`)
     }
@@ -39,6 +39,7 @@ export const createRefferal = asyncHandler( async (req, res) => {
             },
         })
         res.status(201).json(user)
+        console.log(user)
     } catch (error) {
         throw new ApiError(500, `${error} "Something went wrong while registering the user"`)
     }})
